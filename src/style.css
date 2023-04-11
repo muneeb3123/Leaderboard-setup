@@ -25,6 +25,12 @@ body {
   align-items: baseline;
 }
 
+.dom-show li {
+  padding: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .dom-show {
   list-style: none;
   border: 5px solid black;
@@ -42,15 +48,6 @@ body {
 .refresh-btn {
   padding: 5px 40px;
   height: 30px;
-}
-
-.dom-show li {
-  padding: 10px;
-  font-weight: bold;
-}
-
-.dom-show {
-  font-size: 20px;
 }
 
 .input-user {

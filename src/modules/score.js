@@ -39,8 +39,8 @@ class Score {
   addList = ({ name, score }) => {
     this.collection.push({
       id: this.collection.length + 1,
-      name: name,
-      score: score,
+      name,
+      score,
     });
     localStorage.setItem('scoreData', JSON.stringify(this.collection));
     this.renderData();
