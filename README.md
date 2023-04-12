@@ -56,7 +56,7 @@ This is a simple leaderboard list app that allows users to create a new game and
 
 ## 🚀 Live Demo <a name="protfolio-project"></a>
  
-https://chic-dango-8f4fa7.netlify.app/
+https://effortless-alpaca-a51eea.netlify.app
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
