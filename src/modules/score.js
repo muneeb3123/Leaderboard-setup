@@ -7,13 +7,14 @@ class Score {
 
   fetchData = async () => {
     try {
-    const response = await fetch(this.link)
-     const data = await response.json();
-     this.collection = data.result;
-     return this.renderData();
+      const response = await fetch(this.link);
+      const data = await response.json();
+      this.collection = data.result;
+      return this.renderData();
     } catch (error) {
-        console.error('Error:', error);
-      };
+      console.error('Error:', error);
+      return null;
+    }
   };
 
   renderData = () => {
