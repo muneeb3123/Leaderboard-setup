@@ -5,16 +5,15 @@ class Score {
     this.link = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/wVpJdekyVeWw4P4hGrPS/scores/';
   }
 
-  fetchData = () => {
-    fetch(this.link)
-      .then((response) => response.json())
-      .then((data) => {
-        this.collection = data.result;
-        return this.renderData();
-      })
-      .catch((error) => {
+  fetchData = async () => {
+    try {
+    const response = await fetch(this.link)
+     const data = await response.json();
+     this.collection = data.result;
+     return this.renderData();
+    } catch (error) {
         console.error('Error:', error);
-      });
+      };
   };
 
   renderData = () => {
@@ -23,22 +22,21 @@ class Score {
       .join('');
   };
 
-  addList = ({ user, score }) => {
-    fetch(this.link, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ user, score }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.collection.push(data);
-        this.fetchData();
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+  addList = async ({ user, score }) => {
+    try {
+      const response = await fetch(this.link, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user, score }),
       });
+      const data = await response.json();
+      this.collection.push(data);
+      this.fetchData();
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 }
 
