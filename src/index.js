@@ -6,12 +6,15 @@ const addScore = document.querySelector('.input-user');
 
 addScore.addEventListener('submit', (e) => {
   e.preventDefault();
-  const name = document.getElementById('name').value;
+  const user = document.getElementById('name').value;
   const score = document.getElementById('scores').value;
-  newScore.addList({ name, score });
+  newScore.addList({ user, score });
 
   addScore.name.value = '';
   addScore.scores.value = '';
 });
 
-newScore.init();
+const refresh = document.querySelector('.refresh-btn');
+refresh.addEventListener('click', () => {
+  newScore.fetchData();
+});
