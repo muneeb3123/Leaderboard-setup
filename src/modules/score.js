@@ -1,53 +1,43 @@
 class Score {
   constructor() {
     this.showData = document.querySelector('.dom-show');
-    this.collection = JSON.parse(localStorage.getItem('scoreData')) || [
-      {
-        id: 1,
-        name: 'Muneeb',
-        score: 100,
-      },
-      {
-        id: 2,
-        name: 'Talha',
-        score: 100,
-      },
-      {
-        id: 3,
-        name: 'Waqar',
-        score: 100,
-      },
-      {
-        id: 4,
-        name: 'Faisal',
-        score: 100,
-      },
-      {
-        id: 5,
-        name: 'Ali',
-        score: 100,
-      },
-    ];
+    this.collection = [];
+    this.link = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/wVpJdekyVeWw4P4hGrPS/scores/';
   }
+
+  fetchData = async () => {
+    try {
+      const response = await fetch(this.link);
+      const data = await response.json();
+      this.collection = data.result;
+      return this.renderData();
+    } catch (error) {
+      console.error('Error:', error);
+      return null;
+    }
+  };
 
   renderData = () => {
     this.showData.innerHTML = this.collection
-      .map((item) => `<li class='score-item'>${item.name} : ${item.score}</li>`)
+      .map((item) => `<li class='score-item'>${item.user} : ${item.score}</li>`)
       .join('');
   };
 
-  addList = ({ name, score }) => {
-    this.collection.push({
-      id: this.collection.length + 1,
-      name,
-      score,
-    });
-    localStorage.setItem('scoreData', JSON.stringify(this.collection));
-    this.renderData();
-  };
-
-  init = () => {
-    this.renderData();
+  addList = async ({ user, score }) => {
+    try {
+      const response = await fetch(this.link, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user, score }),
+      });
+      const data = await response.json();
+      this.collection.push(data);
+      this.fetchData();
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 }
 
