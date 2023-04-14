@@ -5,10 +5,19 @@ class Score {
     this.link = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/wVpJdekyVeWw4P4hGrPS/scores/';
   }
 
+  message = () => {
+    const submitSucess = document.querySelector('.submit-success');
+    submitSucess.classList.remove('display-none');
+    setTimeout(() => {
+      submitSucess.classList.add('display-none')
+    }, 2000)
+  }
+
   fetchData = async () => {
     try {
       const response = await fetch(this.link);
       const data = await response.json();
+      data.result.sort((a, b) => b.score - a.score);
       this.collection = data.result;
       return this.renderData();
     } catch (error) {
@@ -35,6 +44,7 @@ class Score {
       const data = await response.json();
       this.collection.push(data);
       this.fetchData();
+      this.message();
     } catch (error) {
       console.error('Error:', error);
     }
